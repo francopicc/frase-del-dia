@@ -12,44 +12,46 @@ export default function Home({ data }) {
         <title>La frase del día</title>
       </Head>
       <main>
-      <p class="credits">CREADO POR FRANCO PICCIRILLI</p>
-      <div class="mobile-container">
-          <div class="config-center-responsive">
-              <div class="config-page">
-                  <button id="dark-mode-turn">
-                      <i class="fa-solid fa-moon fa-xl"></i>
-                  </button>
-                  <button id="bell-turn">
-                      <i class="fa-solid fa-bell fa-xl"></i>
-                  </button>
-              </div>
-          </div>
-      <div class="mobile-style">
-              <div class="container">
-                  <h1>La frase del día</h1>
-                  <p>Una frase cada día, gratis y simple.</p>
-              </div>
-          </div>
-          {
-            (data.phrase == '' && data.author == '')
-            ? (
-              <div class="frase-dia">
-                <p>Ocurrio un error: No se encontro la frase. 😕</p>
-              </div>
-            )
-            : (
-              <div class="frase-dia">
-                <p id="phrase">{ data.phrase }</p>
-                <p id="author">- { data.author }</p>
-                <div class="save-phrase">
-                    <button id="save-button">
-                        <i class="fa-regular fa-heart fa-lg"></i>
+        <Script src="https://kit.fontawesome.com/e80c9c3cc8.js"></Script>
+        <Script src="javascript/home.js"></Script>
+        <p class="credits">CREADO POR FRANCO PICCIRILLI</p>
+        <div class="mobile-container">
+            <div class="config-center-responsive">
+                <div class="config-page">
+                    <button id="dark-mode-turn">
+                        <i class="fa-solid fa-moon fa-xl"></i>
+                    </button>
+                    <button id="bell-turn">
+                        <i class="fa-solid fa-bell fa-xl"></i>
                     </button>
                 </div>
-              </div>
-            )
-          }
-      </div>
+            </div>
+        <div class="mobile-style">
+                <div class="container">
+                    <h1>La frase del día</h1>
+                    <p>Una frase cada día, gratis y simple.</p>
+                </div>
+            </div>
+            {
+              (data.phrase == '' && data.author == '')
+              ? (
+                <div class="frase-dia">
+                  <p>Ocurrio un error: No se encontro la frase. 😕</p>
+                </div>
+              )
+              : (
+                <div class="frase-dia">
+                  <p id="phrase">{ data.phrase }</p>
+                  <p id="author">- { data.author }</p>
+                  <div class="save-phrase">
+                      <button id="save-button">
+                          <i class="fa-regular fa-heart fa-lg"></i>
+                      </button>
+                  </div>
+                </div>
+              )
+            }
+        </div>
       </main>
     </>
   )

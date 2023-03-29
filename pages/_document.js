@@ -10,8 +10,6 @@ export default function Document() {
         <link href="https://fonts.googleapis.com/css2?family=PT+Serif&display=swap" rel="stylesheet"/>
       </Head>
       <body>
-        <Script src="https://kit.fontawesome.com/e80c9c3cc8.js"></Script>
-        <Script src="javascript/home.js"></Script>
         <Main />
         <NextScript />
       </body>
