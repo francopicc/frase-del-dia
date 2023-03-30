@@ -154,7 +154,7 @@ left: 100%;
   .mobile-style {
       margin-top: 7.5em;
   }
-  #save-button i {
-      font-size: 19px;
+  div button {
+    font-size: 18px;
   }
 }

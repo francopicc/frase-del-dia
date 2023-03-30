@@ -9,6 +9,8 @@ export default function Home({ data }) {
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="description" content="Persevera y alcanza tu objetivo con frases dedicadas sobre el día a día."/>
+        <link rel="manifest" href="manifest.json"></link>
+        <meta name="theme-color" content="#f9f5f5"/>
         <title>La frase del día</title>
       </Head>
       <main>
@@ -18,10 +20,10 @@ export default function Home({ data }) {
         <div className="mobile-container">
             <div className="config-center-responsive">
                 <div className="config-page">
-                    <button id="dark-mode-turn">
+                    <button id="dark-mode-turn" name="dark-mode">
                         <i className="fa-solid fa-moon fa-xl"></i>
                     </button>
-                    <button id="bell-turn">
+                    <button id="bell-turn" name="notification-switch">
                         <i className="fa-solid fa-bell fa-xl"></i>
                     </button>
                 </div>
@@ -44,7 +46,7 @@ export default function Home({ data }) {
                   <p id="phrase">{ data.phrase }</p>
                   <p id="author">- { data.author }</p>
                   <div className="save-phrase">
-                      <button id="save-button">
+                      <button id="save-button" name="save-phrase">
                           <i className="fa-regular fa-heart fa-lg"></i>
                       </button>
                   </div>
