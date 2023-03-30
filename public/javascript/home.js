@@ -34,7 +34,7 @@ if(!(localStorage.getItem('scheme') == 'dark' || localStorage.getItem('scheme') 
   })
   
   if(localStorage.getItem('scheme') == "dark") {
-      document.body.style.backgroundColor = "#000000"
+      document.body.style.backgroundColor = "#0F0F0F"
       document.body.style.color = "#ffffff"
       document.getElementsByTagName("i")[0].style.color = "#ffffff"
       document.getElementsByTagName("i")[1].style.color = "#ffffff"

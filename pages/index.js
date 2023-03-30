@@ -1,5 +1,4 @@
 import Head from 'next/head'
-import Image from 'next/image'
 import Script from 'next/script'
 
 export default function Home({ data }) {
@@ -9,25 +8,26 @@ export default function Home({ data }) {
         <meta charSet="UTF-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="description" content="Persevera y alcanza tu objetivo con frases dedicadas sobre el día a día."/>
         <title>La frase del día</title>
       </Head>
       <main>
         <Script src="https://kit.fontawesome.com/e80c9c3cc8.js"></Script>
         <Script src="javascript/home.js"></Script>
-        <p class="credits">CREADO POR FRANCO PICCIRILLI</p>
-        <div class="mobile-container">
-            <div class="config-center-responsive">
-                <div class="config-page">
+        <p className="credits">CREADO POR FRANCO PICCIRILLI</p>
+        <div className="mobile-container">
+            <div className="config-center-responsive">
+                <div className="config-page">
                     <button id="dark-mode-turn">
-                        <i class="fa-solid fa-moon fa-xl"></i>
+                        <i className="fa-solid fa-moon fa-xl"></i>
                     </button>
                     <button id="bell-turn">
-                        <i class="fa-solid fa-bell fa-xl"></i>
+                        <i className="fa-solid fa-bell fa-xl"></i>
                     </button>
                 </div>
             </div>
-        <div class="mobile-style">
-                <div class="container">
+        <div className="mobile-style">
+                <div className="container">
                     <h1>La frase del día</h1>
                     <p>Una frase cada día, gratis y simple.</p>
                 </div>
@@ -35,17 +35,17 @@ export default function Home({ data }) {
             {
               (data.phrase == '' && data.author == '')
               ? (
-                <div class="frase-dia">
-                  <p>Ocurrio un error: No se encontro la frase. 😕</p>
+                <div className="frase-dia">
+                  <p>La pagina no esta disponible por el momento o no esta funcionando correctamente.</p>
                 </div>
               )
               : (
-                <div class="frase-dia">
+                <div className="frase-dia">
                   <p id="phrase">{ data.phrase }</p>
                   <p id="author">- { data.author }</p>
-                  <div class="save-phrase">
+                  <div className="save-phrase">
                       <button id="save-button">
-                          <i class="fa-regular fa-heart fa-lg"></i>
+                          <i className="fa-regular fa-heart fa-lg"></i>
                       </button>
                   </div>
                 </div>
