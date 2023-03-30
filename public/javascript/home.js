@@ -1,4 +1,5 @@
 // Por default
+
 if(!(localStorage.getItem('scheme') == 'dark' || localStorage.getItem('scheme') == 'white')) {
     localStorage.setItem('scheme', 'white');
   }
