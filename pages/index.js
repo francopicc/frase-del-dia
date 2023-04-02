@@ -14,6 +14,13 @@ export default function Home({ data }) {
       <main>
         <Script src="https://kit.fontawesome.com/e80c9c3cc8.js"></Script>
         <Script src="javascript/home.js"></Script>
+        <div className="bookmark-saved" id="bookmark-saved">
+          <div className="phrase-bookmark">
+              
+          </div>
+        </div>
+        <div id="background-modal">
+        </div>
         <p className="credits">CREADO POR FRANCO PICCIRILLI</p>
         <div className="mobile-container">
             <div className="config-center-responsive">
@@ -23,6 +30,9 @@ export default function Home({ data }) {
                     </button>
                     <button id="bell-turn" name="notification-switch">
                         <i className="fa-solid fa-bell fa-xl"></i>
+                    </button>
+                    <button id="saved-phrases" name="saved-phrases">
+                        <i className="fa-solid fa-bookmark fa-xl"></i>
                     </button>
                 </div>
             </div>

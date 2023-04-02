@@ -4,6 +4,18 @@
   -webkit-tap-highlight-color: transparent;
 }
 
+button:focus {
+  outline: none; 
+}
+
+/* Animacion para modal */
+
+.show {
+  transform: scale(1.2);
+  visibility: visible;
+  opacity: 1;
+}
+
 .credits {
   font-size: 10px;
   word-spacing: 2px;
@@ -76,6 +88,60 @@ left: 100%;
   justify-content: center;
 }
 
+#background-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0,0,0,0.7);
+  z-index: 990;
+}
+
+.bookmark-saved {
+  display: none;
+  background-color: #1b1b1b;
+  padding: 13.5px;
+  border-radius: 5px;
+  position: absolute;
+  float: left;
+  left: 50%;
+  top: 50%;
+  height: 400px;
+  transform: translate(-50%, -50%);
+  z-index: 999;
+}
+
+#phrase-fav:first-child {
+  background-color: #222222;
+  padding: 10px;
+  max-height: 50px;
+  width: 690px;
+}
+
+#phrase-fav {
+  background-color: #222222;
+  padding: 10px;
+  max-height: 50px;
+  width: 690px;
+  margin-top: 7.5px;
+}
+
+#phrase-fav p:first-child {
+  margin-top: 1px;
+}
+
+#phrase-fav p:nth-child(2) {
+  font-size: 12.5px;
+  margin-top: -3.5px;
+  color: #a3a3a3;
+}
+
+#phrase-fav p {
+  font-size: 15px;
+}
+
 .save-phrase button {
   background-color: transparent;
   border: none;
@@ -86,47 +152,7 @@ left: 100%;
   font-size: 18.5px;
 }
 
-.menu-frases {
-  position: fixed;
-  display: none;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background-color: rgba(0,0,0,0.7);
-  z-index: 990;
-}
-
-#frases-favoritas {
-  position: fixed;
-  top: 0;
-  left: 0;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
-  background-color: #f5f5f5;
-  padding: 10px;
-  border-radius: 5px;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.phrase-fav {
-  background-color: #e2e2e2;
-  padding: 5px;
-  border-radius: 3.5px;
-}
-
-.phrase-text-fav {
-  font-weight: lighter;
-  font-size: 14.5px;
-}
-
-.phrase-author-fav {
-  font-weight: bold;
-  font-size: 9px;
-}
-
-@media (max-width:480px) {
+@media (max-width:550px) {
   .mobile-container {
       display: flex;
       flex-direction: column;
@@ -156,5 +182,22 @@ left: 100%;
   }
   div button {
     font-size: 18px;
+  }
+  .bookmark-saved {
+    width: 325px;
+  }
+  #phrase-fav {
+    width: 300px;
+  }
+  #phrase-fav:first-child {
+    width: 300px !important;
+  }
+  #phrase-fav p:nth-child(1) {
+    font-size: 13.5px;
+    width: fit-content;
+  }
+  #phrase-fav p:nth-child(2) {
+    margin-top: -12.5px;
+    font-size: 10.5px;
   }
 }

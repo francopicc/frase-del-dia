@@ -35,6 +35,6 @@ export default async function handler(req, res) {
   
   res.status(200).json({
     phrase: phrase,
-    author: whoAuthor,
+    author: whoAuthor.replace("-",""),
   });
 }
