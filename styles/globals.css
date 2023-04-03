@@ -116,30 +116,45 @@ left: 100%;
 #phrase-fav:first-child {
   background-color: #222222;
   padding: 10px;
-  max-height: 50px;
+  max-height: 65px;
   width: 690px;
 }
 
 #phrase-fav {
   background-color: #222222;
   padding: 10px;
-  max-height: 50px;
+  max-height: 65px;
   width: 690px;
   margin-top: 7.5px;
 }
 
 #phrase-fav p:first-child {
-  margin-top: 1px;
+  margin-top: -2px;
 }
 
-#phrase-fav p:nth-child(2) {
+.config-phrase {
+  margin-top: -5px;
+}
+
+.delete-button {
+  background-color: transparent;
+  border: none;
+  font-size: 18px;
+  margin-top: -20px;
+}
+
+.config-phrase p {
   font-size: 12.5px;
-  margin-top: -3.5px;
   color: #a3a3a3;
 }
 
 #phrase-fav p {
   font-size: 15px;
+}
+
+.config-phrase {
+  display: flex;
+  justify-content: space-between;
 }
 
 .save-phrase button {
@@ -184,20 +199,28 @@ left: 100%;
     font-size: 18px;
   }
   .bookmark-saved {
-    width: 325px;
+    width: 350px;
   }
   #phrase-fav {
-    width: 300px;
+    width: 350px;
+    max-height: 75px;
   }
   #phrase-fav:first-child {
-    width: 300px !important;
+    width: 330px;
+    max-height: 115px;
   }
   #phrase-fav p:nth-child(1) {
-    font-size: 13.5px;
+    font-size: 14.3px;
     width: fit-content;
+    margin-top: 2.5px;
+    margin-bottom: 5px;
   }
-  #phrase-fav p:nth-child(2) {
-    margin-top: -12.5px;
+  .config-phrase p {
+    margin-top: -13.5px;
     font-size: 10.5px;
+  }
+  .delete-button {
+    margin-top: -6.5px;
+    margin-right: 5px;
   }
 }

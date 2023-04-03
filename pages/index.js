@@ -21,7 +21,7 @@ export default function Home({ data }) {
         </div>
         <div id="background-modal">
         </div>
-        <p className="credits">CREADO POR FRANCO PICCIRILLI</p>
+        <p className="credits">LOS DATOS SE GUARDAN LOCALMENTE EN TU NAVEGADOR/APP.</p>
         <div className="mobile-container">
             <div className="config-center-responsive">
                 <div className="config-page">
@@ -55,7 +55,7 @@ export default function Home({ data }) {
                   <p id="author">- { data.author }</p>
                   <div className="save-phrase">
                       <button id="save-button" name="save-phrase">
-                          <i className="fa-regular fa-heart fa-lg"></i>
+                          <i className="fa-regular fa-heart fa-lg" id="heart-icon"></i>
                       </button>
                   </div>
                 </div>

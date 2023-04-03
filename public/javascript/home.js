@@ -7,10 +7,6 @@ if (!(localStorage.getItem('scheme') == 'dark' || localStorage.getItem('scheme')
 
 if (localStorage.getItem('scheme') == 'dark') {
   heartIcon.style.color = "#ffffff"
-  document.getElementsByTagName("i")[3].style.color = "white"
-  if(document.getElementsByTagName("i")[3].classList.value == "fa-solid fa-heart fa-lg" && document.getElementsByTagName("i")[3].style.color == "black") {
-    document.getElementsByTagName("i")[3].style.color = "white"
-  }
   document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0f0f0f');
 }
 
@@ -67,7 +63,7 @@ document.getElementById("dark-mode-turn").addEventListener("click", () => {
     document.getElementsByTagName("i")[2].style.color = "#ffffff"
     localStorage.setItem('scheme', 'dark');
     document.getElementsByTagName("i")[0].classList = "fa-solid fa-sun fa-xl"
-    heartIcon.style.color = "#ffffff"
+    heartIcon.style.color = "#000000"
     document.getElementById("bookmark-saved").style.color = "#ffffff"
   } else {
     document.body.style.backgroundColor = "#ffffff"
@@ -77,7 +73,7 @@ document.getElementById("dark-mode-turn").addEventListener("click", () => {
     document.getElementsByTagName("i")[2].style.color = "#000000"
     localStorage.setItem('scheme', 'white');
     document.getElementsByTagName("i")[0].classList = "fa-solid fa-moon fa-xl"
-    heartIcon.style.color = "#000000"
+    heartIcon.style.color = "white"
   }
 })
 
@@ -90,7 +86,8 @@ saveButton.addEventListener('click', function () {
   const phrase = {
     phrase: document.getElementById("phrase").textContent,
     author: document.getElementById("author").textContent,
-    liked: false
+    liked: false,
+    date: Date.now()
   }
   // Buscar la cita correspondiente en el array de citas favoritas
   const index = likedQuotes.findIndex(q => q.phrase === phrase.phrase && q.author === phrase.author);
@@ -127,7 +124,11 @@ const currentFavorited = likedQuotes.find(q => q.phrase === currentPhrase.phrase
 if (currentFavorited) {
   saveButton.classList.add('liked');
   saveButton.querySelector('i.fa-heart').classList.replace('fa-regular', 'fa-solid');
-  saveButton.querySelector('i.fa-heart').style.color = "black";
+  if(localStorage.getItem('scheme') == 'dark') {
+    saveButton.querySelector('i.fa-heart').style.color = "white";
+  } else {
+    saveButton.querySelector('i.fa-heart').style.color = "black";
+  }
 }
 
 const background = document.getElementById("background-modal");
@@ -138,16 +139,54 @@ document.getElementById("saved-phrases").addEventListener("click", () => {
   bookmark.style.display = "initial"
   background.style.display = "initial"
   bookmark.innerHTML = ''
-  data.forEach(item => {
-    bookmark.innerHTML += 
-    `
-    <div id="phrase-fav">
-      <p id="phrase-text-fav">${item.phrase}</p>
-      <p id="phrase-author-fav">- ${item.author}</p>
-    </div>
-    `
-  })
-})
+  if (data === null || data.length === 0) {
+    bookmark.innerHTML = '<p>No hay frases guardadas, por ahora...</p>'
+  } else {
+    data.forEach((item, index) => {
+      bookmark.innerHTML += 
+      `
+      <div id="phrase-fav">
+        <p id="phrase-text-fav">${item.phrase}</p>
+        <div class="config-phrase">
+          <p id="phrase-author-fav">${item.author}</p>
+          <button class="delete-button" id="delete-phrase" data-index="${index}"><i class="fa-solid fa-trash"></i></button>
+        </div> 
+      </div>
+      `
+    })
+    const deleteButtons = document.querySelectorAll('.delete-button');
+    deleteButtons[0].style.color = "#ffffff"
+    deleteButtons.forEach((button) => {
+      button.addEventListener('click', (event) => {
+        const index = event.target.getAttribute('data-index');
+        data.splice(index, 1);
+        localStorage.setItem('likedQuotes', JSON.stringify(data));
+        bookmark.innerHTML = '';
+        heartIcon.classList = "fa-regular fa-heart fa-lg"
+        if (data.length === 0) {
+          bookmark.innerHTML = '<p>No hay frases guardadas, por ahora...</p>'
+          bookmark.classList.add("error-message")
+        } else {
+          if(bookmark.classList.contains("error-message")) {
+            bookmark.classList.remove("error-message")
+          }
+          data.forEach((item, index) => {
+            bookmark.innerHTML += 
+            `
+            <div id="phrase-fav">
+              <p id="phrase-text-fav">${item.phrase}</p>
+              <div class="config-phrase">
+              <p id="phrase-author-fav">${item.author}</p>
+              <button class="delete-button" id="delete-phrase" data-index="${index}"><i class="fa-solid fa-trash"></i></button>
+            </div> 
+            </div>
+            `
+          })
+        }
+      });
+    });
+  }
+});
 
 document.getElementById("background-modal").addEventListener("click", () => {
   bookmark.style.display = "none"
