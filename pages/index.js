@@ -1,5 +1,7 @@
 import Head from 'next/head'
 import Script from 'next/script'
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css'
 
 export default function Home({ data }) {
   return (
@@ -20,8 +22,9 @@ export default function Home({ data }) {
           </div>
         </div>
         <div id="background-modal">
+
         </div>
-        <p className="credits">LOS DATOS SE GUARDAN LOCALMENTE EN TU NAVEGADOR/APP.</p>
+        <p className="credits">LOS DATOS SE GUARDAN LOCALMENTE EN TU NAVEGADOR/APP</p>
         <div className="mobile-container">
             <div className="config-center-responsive">
                 <div className="config-page">
@@ -39,7 +42,7 @@ export default function Home({ data }) {
         <div className="mobile-style">
                 <div className="container">
                     <h1>La frase del día</h1>
-                    <p>Una frase cada día, gratis y simple.</p>
+                    <p id="randomDesc">Una frase cada día, gratis y simple.</p>
                 </div>
             </div>
             {
@@ -51,8 +54,10 @@ export default function Home({ data }) {
               )
               : (
                 <div className="frase-dia">
-                  <p id="phrase">{ data.phrase }</p>
-                  <p id="author">- { data.author }</p>
+                  <SkeletonTheme baseColor="#202020" highlightColor="#444">
+                    <p id="phrase">{ data.phrase || <Skeleton  width={350}/>}</p>
+                    <p id="author">{"-" + data.author || <Skeleton width={50}/>}</p>
+                  </SkeletonTheme>
                   <div className="save-phrase">
                       <button id="save-button" name="save-phrase">
                           <i className="fa-regular fa-heart fa-lg" id="heart-icon"></i>

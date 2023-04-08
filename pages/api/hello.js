@@ -32,9 +32,9 @@ export default async function handler(req, res) {
     // Si ha pasado una hora, hacer una nueva solicitud de scraping
     await scrapeData();
   }
-  
+
   res.status(200).json({
     phrase: phrase,
-    author: whoAuthor.replace("-",""),
+    author: whoAuthor.replace("-", ""),
   });
 }
