@@ -31,9 +31,9 @@ export default function Home({ data }) {
                     <button id="dark-mode-turn" name="dark-mode">
                         <i className="fa-solid fa-moon fa-xl"></i>
                     </button>
-                    <button id="bell-turn" name="notification-switch">
+                    {/* <button id="bell-turn" name="notification-switch">
                         <i className="fa-solid fa-bell fa-xl"></i>
-                    </button>
+                    </button> */}
                     <button id="saved-phrases" name="saved-phrases">
                         <i className="fa-solid fa-bookmark fa-xl"></i>
                     </button>
@@ -56,7 +56,7 @@ export default function Home({ data }) {
                 <div className="frase-dia">
                   <SkeletonTheme baseColor="#202020" highlightColor="#444">
                     <p id="phrase">{ data.phrase || <Skeleton  width={350}/>}</p>
-                    <p id="author">{"-" + data.author || <Skeleton width={50}/>}</p>
+                    <p id="author">{"- " + data.author || <Skeleton width={50}/>}</p>
                   </SkeletonTheme>
                   <div className="save-phrase">
                       <button id="save-button" name="save-phrase">
@@ -73,7 +73,11 @@ export default function Home({ data }) {
 }
 
 export async function getServerSideProps(context) {
-  const res = await fetch(process.env.LOCAL_URL + '/api/hello')
+  const res = await fetch(process.env.LOCAL_URL + '/api/hello', {
+    headers: {
+      'Authorization': 'Bearer ' + process.env.TOKEN_API
+    }
+  })
   const data = await res.json();
 
   return {

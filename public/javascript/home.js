@@ -1,3 +1,4 @@
+
 const saveButton = document.getElementById('save-button');
 const heartIcon = saveButton.querySelector('i.fa-heart');
 
@@ -25,39 +26,10 @@ const frases = [
   "Comienza tu día con una sonrisa y una frase motivadora",
   "Las palabras tienen poder, elige las que te inspiren",
   "Una frase positiva puede cambiar tu perspectiva del día",
-  "Las buenas frases son como la música para el alma"
+  "Las buenas frases son como la música para el alma",
 ];
 
 document.getElementById("randomDesc").textContent = frases[Math.floor(Math.random()*frases.length)];
-
-
-document.getElementById("bell-turn").addEventListener("click", () => {
-  function checkNinePmInBuenosAires() {
-    const now = new Date();
-    const hour = now.getHours();
-    if (hour === 21) { // Comprobamos si la hora actual es 21:00
-      const phrase = document.getElementById("phrase").textContent;
-      const author = document.getElementById("author").textContent;
-      if (Notification.permission === 'granted') {
-        const notification = new Notification('La frase del día de hoy es:', {
-          body: `${phrase} ${author}`,
-        });
-      }
-    }
-  }
-  if (Notification.permission === 'default') {
-    const alertBell = alert("Establece las notificaciones con: para siempre, de lo contrario, las notificaciones no llegarán.");
-    if (alertBell === undefined) {
-      Notification.requestPermission();
-    }
-  }
-
-  if (Notification.permission === 'denied') {
-    alert("Las notificaciones están bloqueadas/desactivadas, necesitaremos acceso para enviarte una frase cada día.")
-  }
-
-  setInterval(checkNinePmInBuenosAires, 30000);
-})
 
 if (localStorage.getItem('scheme') == "dark") {
   document.body.style.backgroundColor = "#0F0F0F"

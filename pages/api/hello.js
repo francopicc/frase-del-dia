@@ -1,40 +1,51 @@
-import axios from 'axios';
-import cheerio from 'cheerio';
+import connectToDatabase from '@/db/phrase';
+import Phrase from '../../models/phrase';
 
 let phrase = '';
 let whoAuthor = '';
 let lastScrapedTime = 0;
 
 const scrapeData = async () => {
-  const url = await axios.get('https://proverbia.net/');
-  const html = url.data;
-  const $ = cheerio.load(html);
-  const data = $('.bsquote', html);
-  const author = $('.bsquote footer', html);
-  const scraped = data[0].children[0].next.children[0].data;
-  const isfrom = author[0].children[0].next.children[0].data;
-  phrase = scraped;
-  whoAuthor = isfrom;
+  const scraped = await Phrase.aggregate([{ $sample: { size: 1 } }]);
+  phrase = scraped[0].phrase;
+  whoAuthor = scraped[0].author;
   lastScrapedTime = Date.now();
 };
 
-setInterval(async () => {
-  await scrapeData();
-}, 1000 * 60 * 60); // Ejecutar cada hora
-
-scrapeData(); // Ejecutar una vez al inicio del servidor
+const startScrapingAtMidnight = () => {
+  const now = new Date();
+  const midnight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 0);
+  const timeUntilMidnight = midnight - now;
+  setTimeout(async () => {
+    await scrapeData();
+    setInterval(async () => {
+      await scrapeData();
+    }, 24 * 60 * 60 * 1000);
+  }, timeUntilMidnight);
+};
 
 export default async function handler(req, res) {
-  // Verificar si ha pasado una hora desde la última vez que se hizo el scraping
-  const now = Date.now();
-  const elapsed = now - lastScrapedTime;
-  if (elapsed >= 60 * 60 * 1000) {
-    // Si ha pasado una hora, hacer una nueva solicitud de scraping
-    await scrapeData();
+  await connectToDatabase();
+  if (!req.headers.authorization) {
+    res.status(401).json({
+      error: 'Unauthorized',
+    });
+    return;
   }
 
+  // Verificar si el valor del encabezado Authorization es válido
+  const token = req.headers.authorization.split(' ')[1];
+  if (token !== process.env.TOKEN_API) { // Reemplace 'myToken' con su token de autorización
+    
+    return;
+  }
+  if (lastScrapedTime === 0) {
+    // Si es la primera vez que se ejecuta el servidor, hacer una nueva solicitud de scraping
+    await scrapeData();
+    startScrapingAtMidnight();
+  }
   res.status(200).json({
     phrase: phrase,
-    author: whoAuthor.replace("-", ""),
+    author: whoAuthor,
   });
 }
