@@ -24,7 +24,15 @@ button {
   box-shadow: inset 0 0 0 10px;
 }
 
-/* Animacion para modal */
+.navbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.navbar a img {
+  width: 30px;
+}
 
 #decoPage {
   position: absolute;
@@ -46,6 +54,32 @@ button {
   word-spacing: 2px;
   color: #dfdddd;
   text-align: center;
+  margin-top: -0px;
+}
+
+#soporta {
+  text-decoration: none;
+}
+
+#supportDiv {
+  display: flex;
+  justify-content: center;
+}
+
+#supportDiv button {
+  border: none;
+  background-color: transparent;
+}
+
+#supportPage {
+  font-size: 9px;
+  word-spacing: 0px;
+  color: #cfcfcf;
+  text-align: center;
+  background-color: #424242;
+  padding: 5px;
+  border-radius: 2.5px;
+  width: fit-content;
 }
 
 .config-page {
@@ -153,12 +187,37 @@ left: 100%;
   margin-top: 7.5px;
 }
 
+.phrase-text {
+  margin-top: 5px;
+}
+
 #phrase-fav p:first-child {
   margin-top: -2px;
 }
 
 .config-phrase {
   margin-top: -5px;
+}
+
+#phraseDetailsBook {
+  display: flex;
+  flex-direction: row;
+  width: fit-content;
+  color: #a3a3a3;
+}
+
+#phraseDetailsBook label {
+  margin-top: -0.5px;
+  margin-left: 10px;
+  font-size: 10.5px;
+}
+
+#phraseDetailsBook i {
+  font-size: 13.5px;
+}
+
+.date-add-phrase {
+  letter-spacing: 0.5px;
 }
 
 .delete-button {
@@ -197,6 +256,10 @@ left: 100%;
 }
 
 @media (max-width:550px) {
+  #supportPage {
+    font-size: 11px;
+    letter-spacing: 0.5px;
+  }
   .mobile-container {
       display: flex;
       flex-direction: column;
@@ -204,6 +267,7 @@ left: 100%;
   }
   .container {
       width: auto;
+      margin-top: -65px;
   }
   h1 {
       font-size: 30px;

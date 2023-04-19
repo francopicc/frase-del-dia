@@ -1,17 +1,20 @@
 
 const saveButton = document.getElementById('save-button');
 const heartIcon = saveButton.querySelector('i.fa-heart');
+const background = document.getElementById("background-modal");
+const bookmark = document.getElementById("bookmark-saved");
+const savedPhrases = document.getElementById("saved-phrases");
 
-if (!(localStorage.getItem('scheme') == 'dark' || localStorage.getItem('scheme') == 'white')) {
+const scheme = localStorage.getItem('scheme');
+
+if (!['dark', 'white'].includes(scheme)) {
   localStorage.setItem('scheme', 'white');
 }
 
-if (localStorage.getItem('scheme') == 'dark') {
+if (scheme === 'dark') {
   heartIcon.style.color = "#ffffff"
   document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0f0f0f');
-}
-
-if (localStorage.getItem("scheme") == "white") {
+} else {
   document.getElementById("bookmark-saved").style.color = "rgb(213 213 213)"
   document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff');
 }
@@ -31,7 +34,7 @@ const frases = [
 
 document.getElementById("randomDesc").textContent = frases[Math.floor(Math.random()*frases.length)];
 
-if (localStorage.getItem('scheme') == "dark") {
+if (localStorage.getItem('scheme') === "dark") {
   document.body.style.backgroundColor = "#0F0F0F"
   document.body.style.color = "#ffffff"
   document.getElementsByTagName("i")[0].style.color = "#ffffff"
@@ -51,6 +54,8 @@ document.getElementById("dark-mode-turn").addEventListener("click", () => {
     heartIcon.style.color = "#ffffff"
     document.getElementById("bookmark-saved").style.color = "#ffffff"
     document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0F0F0F');
+    document.getElementById("supportPage").style.color = "#cfcfcf"
+    document.getElementById("supportPage").style.backgroundColor = "#424242"
   } else {
     document.body.style.backgroundColor = "#ffffff"
     document.body.style.color = "#000000"
@@ -61,7 +66,15 @@ document.getElementById("dark-mode-turn").addEventListener("click", () => {
     document.getElementsByTagName("i")[0].classList = "fa-solid fa-moon fa-xl"
     heartIcon.style.color = "black"
     document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff');
+    document.getElementById("supportPage").style.color = "#0f0f0f"
+    document.getElementById("supportPage").style.backgroundColor = "#f3f3f3"
   }
+})
+
+// Apoyo de la pagina
+
+document.getElementById("soporta").addEventListener("click", () => {
+
 })
 
 // Obtenemos el botón HTML
@@ -121,9 +134,23 @@ if (currentFavorited) {
   }
 }
 
-const background = document.getElementById("background-modal");
-const bookmark = document.getElementById("bookmark-saved");
-const savedPhrases = document.getElementById("saved-phrases");
+function getDateDiff(date) {
+  const now = new Date();
+  const diffInMs = now - date;
+
+  if (diffInMs < 60000) { // Menos de 1 minuto
+    return "UNOS SEGUNDOS";
+  } else if (diffInMs < 3600000) { // Menos de 1 hora
+    const diffInMins = Math.floor(diffInMs / 60000);
+    return `${diffInMins} ${diffInMins > 1 ? "MINUTOS" : "MINUTO"}`;
+  } else if (diffInMs < 86400000) { // Menos de 1 día
+    const diffInHours = Math.floor(diffInMs / 3600000);
+    return `${diffInHours} ${diffInHours > 1 ? "HORAS" : "HORA"}`;
+  } else { // 1 día o más
+    const diffInDays = Math.floor(diffInMs / 86400000);
+    return `${diffInDays} ${diffInDays > 1 ? "DÍAS" : "DÍA"}`;
+  }
+}
 
 function renderBookmark(data) {
   bookmark.innerHTML = "";
@@ -134,10 +161,15 @@ function renderBookmark(data) {
   let pages = "";
   for (let i = 0; i < data.length; i += 4) {
     const page = data
+      .sort((a, b) => new Date(b.date) - new Date(a.date))
       .slice(i, i + 4)
       .map((item, index) => {
         return `
           <div class="phrase" id="phrase-fav">
+            <div id="phraseDetailsBook">
+              <i class="fa-solid fa-clock"></i>
+              <label class="date-add-phrase" id="date-phrase-added">AGREGADA HACE ${getDateDiff(item.date)}</label>
+            </div>
             <p class="phrase-text" id="phrase-text-fav">${item.phrase}</p>
             <div class="config-phrase">
               <p class="phrase-author" id="phrase-author-fav">${item.author}</p>

@@ -16,6 +16,11 @@ export default function Home({ data }) {
       <main>
         <Script src="https://kit.fontawesome.com/e80c9c3cc8.js"></Script>
         <Script src="javascript/home.js"></Script>
+        <div className="navbar">
+          <a href="/">
+            <img src="icon-192x192.png" alt="" className="imgNavbar" />
+          </a>
+        </div>
         <div className="bookmark-saved" id="bookmark-saved">
           <div className="phrase-bookmark">
               
@@ -23,6 +28,11 @@ export default function Home({ data }) {
         </div>
         <div id="background-modal">
 
+        </div>
+        <div id="supportDiv">
+          <a id="soporta" href="https://cafecito.app/frasedeldia">
+            <p id="supportPage">AYUDA A QUE LA PLATAFORMA SIGA CRECIENDO ☕🤝</p>
+          </a>
         </div>
         <p className="credits">LOS DATOS SE GUARDAN LOCALMENTE EN TU NAVEGADOR/APP</p>
         <div className="mobile-container">

@@ -14,14 +14,13 @@ const scrapeData = async () => {
 
 const startScrapingAtMidnight = () => {
   const now = new Date();
-  const midnight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 0);
-  const timeUntilMidnight = midnight - now;
+  const nextMidnight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 0) - now;
   setTimeout(async () => {
     await scrapeData();
     setInterval(async () => {
       await scrapeData();
-    }, 24 * 60 * 60 * 1000);
-  }, timeUntilMidnight);
+    }, 10 * 1000);
+  }, nextMidnight);
 };
 
 export default async function handler(req, res) {
