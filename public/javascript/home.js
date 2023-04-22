@@ -198,6 +198,7 @@ savedPhrases.addEventListener("click", () => {
   background.style.display = "initial";
   if (esDispositivoMovil()) {
     bookmark.style.width = "350px";
+    bookmark.style.height = "400px";
     bookmark.style.overflowY = "auto"
   } else {
     bookmark.style.width = "715px";
