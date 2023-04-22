@@ -196,9 +196,14 @@ savedPhrases.addEventListener("click", () => {
   const data = JSON.parse(localStorage.getItem("likedQuotes"));
   bookmark.style.display = "initial";
   background.style.display = "initial";
-  bookmark.style.width = "715px";
-  bookmark.style.height = "400px";
-  bookmark.style.overflowY = "overlay"
+  if (esDispositivoMovil()) {
+    bookmark.style.width = "350px";
+    bookmark.style.overflowY = "auto"
+  } else {
+    bookmark.style.width = "715px";
+    bookmark.style.height = "400px";
+    bookmark.style.overflowY = "overlay"
+  }
   renderBookmark(data);
 });
 
@@ -275,6 +280,10 @@ lines.forEach((line, index) => {
   // Devolver la imagen generada
   return image;
 };
+
+function esDispositivoMovil() {
+  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+}
 
 document.getElementById("share-button").addEventListener("click", () => {
   const text = document.getElementById("phrase").textContent;
