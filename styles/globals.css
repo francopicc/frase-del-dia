@@ -264,17 +264,13 @@ left: 100%;
   border-radius: 5px;
 }
 
-#download-img-div {
-  margin-left: 5px;
-}
-
 #info-img-download div {
   display: flex;
   justify-content: center;
 }
 
 #info-img-p { 
-  font-size: 12.5px;
+  font-size: 10.5px;
   color: #cccccc;
   text-align: center;
 }

@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import Script from 'next/script'
+import Image from 'next/image';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css'
 
@@ -18,7 +19,7 @@ export default function Home({ data }) {
         <Script src="javascript/home.js"></Script>
         <div className="navbar">
           <a href="/">
-            <img src="icon-192x192.png" alt="" className="imgNavbar" />
+            <Image src="/icon-512x512.png" width={50} height={30} alt="La frase del día" className="imgNavbar" />
           </a>
         </div>
         <div className="bookmark-saved" id="bookmark-saved">
