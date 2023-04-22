@@ -259,7 +259,7 @@ lines.forEach((line, index) => {
   context.fillStyle = '#CCCCCC';
 
   // Agregar texto del pie de página debajo del subtitulo
-  const footerText = "La frase del día";
+  const footerText = "La frase del día"
   fontSize = 42.5;
   context.font = `${fontSize}px PT Serif`;
   const footerY = startY + ((lines.length + 10.5) * lineHeight); // Posición del pie de página
