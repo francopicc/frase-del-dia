@@ -72,6 +72,9 @@ export default function Home({ data }) {
                       <button id="save-button" name="save-phrase">
                           <i className="fa-regular fa-heart fa-lg" id="heart-icon"></i>
                       </button>
+                      <button id="share-button" name="share-phrase">
+                        <i className="fa-solid fa-share-from-square" id="share-icon"></i>
+                      </button>
                   </div>
                 </div>
               )

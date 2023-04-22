@@ -17,9 +17,9 @@ const startScrapingAtMidnight = () => {
   const nextMidnight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 0) - now;
   setTimeout(async () => {
     await scrapeData();
-    setInterval(async () => {
-      await scrapeData();
-    }, 10 * 1000);
+    const nextMidnight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 0);
+    const millisecondsUntilNextMidnight = nextMidnight - now;
+    setTimeout(startScrapingAtMidnight, millisecondsUntilNextMidnight);
   }, nextMidnight);
 };
 
