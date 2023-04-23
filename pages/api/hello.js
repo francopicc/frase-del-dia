@@ -1,15 +1,20 @@
 import moment from 'moment-timezone';
 import connectToDatabase from '@/db/phrase';
 import Phrase from '../../models/phrase';
-import cron from 'node-cron'
+import cron from 'node-cron';
 
 let phrase = '';
 let whoAuthor = '';
+let isFirstTime = true;
 
 const scrapeData = async () => {
   const [ { phrase: newPhrase, author: newAuthor } ] = await Phrase.aggregate([{ $sample: { size: 1 } }]);
   phrase = newPhrase;
   whoAuthor = newAuthor;
+  if (isFirstTime) {
+    console.log(`La frase se actualizó por primera vez a las ${moment().tz('America/Argentina/Buenos_Aires').format('YYYY-MM-DD HH:mm:ss')}.`);
+    isFirstTime = false;
+  }
 };
 
 const startScheduledTasks = () => {
