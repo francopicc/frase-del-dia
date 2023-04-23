@@ -175,14 +175,14 @@ left: 100%;
 #phrase-fav:first-child {
   background-color: #222222;
   padding: 10px;
-  max-height: 65px;
+  max-height: fit-content;
   width: 690px;
 }
 
 #phrase-fav {
   background-color: #222222;
   padding: 10px;
-  max-height: 65px;
+  max-height: fit-content;
   width: 690px;
   margin-top: 7.5px;
 }
@@ -255,6 +255,51 @@ left: 100%;
   font-size: 18.5px;
 }
 
+#phraseQuoteImage {
+  display: flex;
+  justify-content: center;
+}
+
+#phraseQuoteImage img {
+  border-radius: 5px;
+}
+
+#info-img-download div {
+  display: flex;
+  justify-content: center;
+}
+
+#info-img-p { 
+  font-size: 10.5px;
+  color: #cccccc;
+  text-align: center;
+}
+
+#a-download {
+  background-color: #c9c6c6;
+  color: #1f1e1e;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 13.5px;
+  width: 230px;
+  font-weight: bold;
+}
+
+#button-download-img {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+#button-download-img i {
+  margin-top: 23.5px;
+  margin-left: 5px;
+}
+
+#button-download-img p {
+  margin-left: 5px;
+}
+
 @media (max-width:550px) {
   #supportPage {
     font-size: 11px;
@@ -286,13 +331,14 @@ left: 100%;
       left: 100%;
   }
   .mobile-style {
-      margin-top: 7.5em;
+      margin-top: 6em;
   }
   div button {
     font-size: 18px;
   }
   .bookmark-saved {
     width: 350px;
+    height: 450px;
   }
   #phrase-fav {
     width: 330px;

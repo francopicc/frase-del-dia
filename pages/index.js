@@ -1,10 +1,11 @@
 import Head from 'next/head'
 import Script from 'next/script'
+import Image from 'next/image';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css'
 
 export default function Home({ data }) {
-  return (
+  return ( 
     <>
       <Head>
         <meta charSet="UTF-8" />
@@ -18,7 +19,7 @@ export default function Home({ data }) {
         <Script src="javascript/home.js"></Script>
         <div className="navbar">
           <a href="/">
-            <img src="icon-192x192.png" alt="" className="imgNavbar" />
+            <Image src="/icon-512x512.png" width={50} height={30} alt="La frase del día" className="imgNavbar" />
           </a>
         </div>
         <div className="bookmark-saved" id="bookmark-saved">
@@ -72,6 +73,9 @@ export default function Home({ data }) {
                       <button id="save-button" name="save-phrase">
                           <i className="fa-regular fa-heart fa-lg" id="heart-icon"></i>
                       </button>
+                      <button id="share-button" name="share-phrase">
+                        <i className="fa-solid fa-share-from-square" id="share-icon"></i>
+                      </button>
                   </div>
                 </div>
               )
@@ -83,16 +87,20 @@ export default function Home({ data }) {
 }
 
 export async function getServerSideProps(context) {
+  // Obtener los datos de la API
   const res = await fetch(process.env.LOCAL_URL + '/api/hello', {
     headers: {
       'Authorization': 'Bearer ' + process.env.TOKEN_API
     }
-  })
+  });
   const data = await res.json();
 
   return {
     props: {
       data
-    }
+    },
   }
 }
+
+
+

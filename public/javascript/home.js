@@ -40,6 +40,7 @@ if (localStorage.getItem('scheme') === "dark") {
   document.getElementsByTagName("i")[0].style.color = "#ffffff"
   document.getElementsByTagName("i")[1].style.color = "#ffffff"
   document.getElementsByTagName("i")[2].style.color = "#ffffff"
+  document.getElementsByTagName("i")[3].style.color = "#ffffff"
 }
 
 document.getElementById("dark-mode-turn").addEventListener("click", () => {
@@ -56,6 +57,7 @@ document.getElementById("dark-mode-turn").addEventListener("click", () => {
     document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0F0F0F');
     document.getElementById("supportPage").style.color = "#cfcfcf"
     document.getElementById("supportPage").style.backgroundColor = "#424242"
+    document.getElementsByTagName("i")[3].style.color = "#ffffff"
   } else {
     document.body.style.backgroundColor = "#ffffff"
     document.body.style.color = "#000000"
@@ -68,13 +70,8 @@ document.getElementById("dark-mode-turn").addEventListener("click", () => {
     document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff');
     document.getElementById("supportPage").style.color = "#0f0f0f"
     document.getElementById("supportPage").style.backgroundColor = "#f3f3f3"
+    document.getElementsByTagName("i")[3].style.color = "#000000"
   }
-})
-
-// Apoyo de la pagina
-
-document.getElementById("soporta").addEventListener("click", () => {
-
 })
 
 // Obtenemos el botón HTML
@@ -199,6 +196,15 @@ savedPhrases.addEventListener("click", () => {
   const data = JSON.parse(localStorage.getItem("likedQuotes"));
   bookmark.style.display = "initial";
   background.style.display = "initial";
+  if (esDispositivoMovil()) {
+    bookmark.style.width = "350px";
+    bookmark.style.height = "400px";
+    bookmark.style.overflowY = "auto"
+  } else {
+    bookmark.style.width = "715px";
+    bookmark.style.height = "400px";
+    bookmark.style.overflowY = "overlay"
+  }
   renderBookmark(data);
 });
 
@@ -206,4 +212,104 @@ background.addEventListener("click", () => {
   bookmark.style.display = "none";
   background.style.display = "none";
   bookmark.innerHTML = "";
+});
+
+// Compartir
+
+let imagen = "";
+
+const generateInstagramStory = (text, subtext) => {
+  const canvas = document.createElement('canvas');
+  canvas.width = 1080;
+  canvas.height = 1920;
+  const context = canvas.getContext('2d');
+
+  // Dibujar un fondo gris
+  context.fillStyle = '#0F0F0F';
+  context.fillRect(0, 0, canvas.width, canvas.height);
+
+  // Ajustar el tamaño de fuente al ancho del canvas
+  let fontSize = 60;
+
+  // Agregar texto en el centro del canvas con saltos de línea y espaciado a los lados
+const textWidth = canvas.width * 0.8; // Ancho del texto al 80% del canvas
+context.fillStyle = '#FFFFFF';
+context.font = `bold ${fontSize}px PT Serif`;
+context.textAlign = 'center';
+const lineHeight = fontSize * 1.2; // Altura de línea
+const maxLines = Math.floor(canvas.height / lineHeight) - 2; // Máximo de líneas en el canvas, dejando espacio para el texto adicional
+let words = text.split(' ');
+let line = '';
+let lines = [];
+while (words.length > 0 && lines.length < maxLines) {
+  while (context.measureText(`${line} ${words[0]}`).width < textWidth) {
+    line += `${words.shift()} `;
+    if (words.length === 0) {
+      break;
+    }
+  }
+  lines.push(line.trim());
+  line = '';
+}
+const startY = (canvas.height - ((lines.length + 1) * lineHeight)) / 2; // Agregar espacio para el texto adicional
+lines.forEach((line, index) => {
+  context.fillText(line, canvas.width / 2, startY + (index * lineHeight));
+});
+
+
+
+  // Agregar texto de subtitulo debajo del texto principal
+  fontSize = 40;
+  context.font = `${fontSize}px PT Serif`;
+  context.fillText(subtext, canvas.width / 2, startY + ((lines.length + 0.5) * lineHeight));
+  context.fillStyle = '#CCCCCC';
+
+  // Agregar texto del pie de página debajo del subtitulo
+  const footerText = "La frase del día"
+  fontSize = 42.5;
+  context.font = `${fontSize}px PT Serif`;
+  const footerY = startY + ((lines.length + 10.5) * lineHeight); // Posición del pie de página
+  context.fillText(footerText, canvas.width / 2, footerY);
+  context.fillStyle = '#CCCCCC';
+
+  // Crear una imagen a partir del canvas
+  const image = new Image();
+  image.src = canvas.toDataURL();
+
+  imagen = image;
+
+  // Devolver la imagen generada
+  return image;
+};
+
+function esDispositivoMovil() {
+  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+}
+
+document.getElementById("share-button").addEventListener("click", () => {
+  const text = document.getElementById("phrase").textContent;
+  const autor = document.getElementById("author").textContent;
+  bookmark.style.display = "initial";
+  background.style.display = "initial";
+  bookmark.style.height = "600px";
+  bookmark.style.width = "350px";
+  bookmark.style.overflowY = "hidden"
+  const image = generateInstagramStory(text, autor);
+  imagen = image.src;
+  bookmark.innerHTML = `
+    <div id="phraseQuoteImage">
+      <img src="${imagen}" width="275" />
+    </div>
+    <div id="info-img-download">
+      <p id="info-img-p">Descargar la imagen y subir a historias, o tambien publicaciones ☕</p>
+      <div id="download-img-div">
+        <a href="${imagen}" id="a-download" download="instagram-story.png" target="_blank">
+          <div id="button-download-img">
+            <i class="fa-solid fa-circle-down fa-xl"></i>
+            <p>Descargar imagen</p>
+          </div>
+        </a>
+      </div>
+    </div>
+  `;
 });
