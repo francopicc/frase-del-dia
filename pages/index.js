@@ -5,7 +5,7 @@ import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css'
 
 export default function Home({ data }) {
-  return (
+  return ( 
     <>
       <Head>
         <meta charSet="UTF-8" />
@@ -87,16 +87,20 @@ export default function Home({ data }) {
 }
 
 export async function getServerSideProps(context) {
+  // Obtener los datos de la API
   const res = await fetch(process.env.LOCAL_URL + '/api/hello', {
     headers: {
       'Authorization': 'Bearer ' + process.env.TOKEN_API
     }
-  })
+  });
   const data = await res.json();
 
   return {
     props: {
       data
-    }
+    },
   }
 }
+
+
+

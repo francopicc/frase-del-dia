@@ -175,14 +175,14 @@ left: 100%;
 #phrase-fav:first-child {
   background-color: #222222;
   padding: 10px;
-  max-height: 65px;
+  max-height: fit-content;
   width: 690px;
 }
 
 #phrase-fav {
   background-color: #222222;
   padding: 10px;
-  max-height: 65px;
+  max-height: fit-content;
   width: 690px;
   margin-top: 7.5px;
 }

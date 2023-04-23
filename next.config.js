@@ -7,5 +7,5 @@ module.exports = withPWA({
     dest: "public",
     register: true,
     skipWaiting: true,
-  }
+  },
 })
