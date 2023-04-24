@@ -1,51 +1,40 @@
-import moment from 'moment-timezone';
-import connectToDatabase from '@/db/phrase';
-import Phrase from '../../models/phrase';
-import cron from 'node-cron';
+import axios from 'axios';
+import cheerio from 'cheerio';
 
 let phrase = '';
 let whoAuthor = '';
-let isFirstTime = true;
+let lastScrapedTime = 0;
 
 const scrapeData = async () => {
-  const [ { phrase: newPhrase, author: newAuthor } ] = await Phrase.aggregate([{ $sample: { size: 1 } }]);
-  phrase = newPhrase;
-  whoAuthor = newAuthor;
-  if (isFirstTime) {
-    console.log(`La frase se actualizó por primera vez a las ${moment().tz('America/Argentina/Buenos_Aires').format('YYYY-MM-DD HH:mm:ss')}.`);
-    isFirstTime = false;
-  }
+  const url = await axios.get('https://proverbia.net/');
+  const html = url.data;
+  const $ = cheerio.load(html);
+  const data = $('.bsquote', html);
+  const author = $('.bsquote footer', html);
+  const scraped = data[0].children[0].next.children[0].data;
+  const isfrom = author[0].children[0].next.children[0].data;
+  phrase = scraped;
+  whoAuthor = isfrom;
+  lastScrapedTime = Date.now();
 };
 
-const startScheduledTasks = () => {
-  cron.schedule('0 0 * * *', async () => {
-    await scrapeData();
-    console.log("Frase actualizada a medianoche.");
-  }, {
-    scheduled: true,
-    timezone: 'America/Argentina/Buenos_Aires'
-  });
-};
+setInterval(async () => {
+  await scrapeData();
+}, 1000 * 60 * 60); // Ejecutar cada hora
+
+scrapeData(); // Ejecutar una vez al inicio del servidor
 
 export default async function handler(req, res) {
-  await connectToDatabase();
-
-  // Verificar si el valor del encabezado Authorization es válido
-  const token = req.headers.authorization?.split(' ')[1];
-  if (token !== process.env.TOKEN_API) {
-    res.setHeader('Location', '/');
-    res.status(302).send();
-    return;
-  }
-
-  if (!phrase) {
-    // Si es la primera vez que se ejecuta el servidor o se reinició, hacer una nueva solicitud de scraping
+  // Verificar si ha pasado una hora desde la última vez que se hizo el scraping
+  const now = Date.now();
+  const elapsed = now - lastScrapedTime;
+  if (elapsed >= 60 * 60 * 1000) {
+    // Si ha pasado una hora, hacer una nueva solicitud de scraping
     await scrapeData();
   }
-  startScheduledTasks();
 
   res.status(200).json({
-    phrase,
-    author: whoAuthor,
+    phrase: phrase,
+    author: whoAuthor.replace("-", ""),
   });
 }
